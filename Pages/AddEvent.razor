@@ -1,0 +1,47 @@
+﻿@page "/events/add"
+@using CourseraBlazor.Data
+@using CourseraBlazor.Models
+@inject EventStore EventStore
+
+<h2>Add New Event</h2>
+
+<EditForm Model="@newEvent" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label>Event Name</label>
+        <InputText class="form-control" @bind-Value="newEvent.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label>Date</label>
+        <InputDate class="form-control" @bind-Value="newEvent.Date" />
+    </div>
+
+    <div class="mb-3">
+        <label>Location</label>
+        <InputText class="form-control" @bind-Value="newEvent.Location" />
+    </div>
+
+    <button class="btn btn-success" type="submit">
+        Add Event
+    </button>
+</EditForm>
+
+@if (success)
+{
+    <p class="text-success mt-2">✅ Event added successfully!</p>
+}
+
+@code {
+    private Event newEvent = new();
+    private bool success;
+
+    private void HandleSubmit()
+    {
+        EventStore.AddEvent(newEvent);
+        newEvent = new Event();
+        success = true;
+    }
+}
