@@ -1,0 +1,21 @@
+﻿@page "/events"
+@using CourseraBlazor.Models
+
+<h1>Upcoming Events</h1>
+
+@foreach (var ev in EventsList)
+{
+    <div class="event-card">
+        <h3>@ev.Name</h3>
+        <p><strong>Date:</strong> @ev.Date.ToShortDateString()</p>
+        <p><strong>Location:</strong> @ev.Location</p>
+    </div>
+}
+
+@code {
+    private List<Event> EventsList = new()
+    {
+        new Event { Id = 1, Name = "Corporate Summit", Date = DateTime.Today.AddDays(10), Location = "London" },
+        new Event { Id = 2, Name = "Tech Conference", Date = DateTime.Today.AddDays(20), Location = "Berlin" }
+    };
+}

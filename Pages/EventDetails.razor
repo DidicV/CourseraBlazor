@@ -1,0 +1,38 @@
+﻿@page "/events/{id:int}"
+@using CourseraBlazor.Models
+
+<h1>Event Details</h1>
+
+@if (SelectedEvent is null)
+{
+    <p>Event not found.</p>
+}
+else
+{
+    <h2>@SelectedEvent.Name</h2>
+    <p><strong>Date:</strong> @SelectedEvent.Date.ToShortDateString()</p>
+    <p><strong>Location:</strong> @SelectedEvent.Location</p>
+
+    <NavLink class="btn btn-primary" href="/register">
+        Register
+    </NavLink>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Event? SelectedEvent;
+
+    protected override void OnInitialized()
+    {
+        // Mock lookup (later replaced with service)
+        var events = new List<Event>
+        {
+            new Event { Id = 1, Name = "Corporate Summit", Date = DateTime.Today.AddDays(10), Location = "London" },
+            new Event { Id = 2, Name = "Tech Conference", Date = DateTime.Today.AddDays(20), Location = "Berlin" }
+        };
+
+        SelectedEvent = events.FirstOrDefault(e => e.Id == Id);
+    }
+}
