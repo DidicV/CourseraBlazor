@@ -1,21 +1,15 @@
 ﻿@page "/events"
+@using CourseraBlazor.Data
 @using CourseraBlazor.Models
+@inject EventStore EventStore
 
 <h1>Upcoming Events</h1>
 
-@foreach (var ev in EventsList)
+@foreach (var ev in EventStore.Events)
 {
     <div class="event-card">
         <h3>@ev.Name</h3>
         <p><strong>Date:</strong> @ev.Date.ToShortDateString()</p>
         <p><strong>Location:</strong> @ev.Location</p>
     </div>
-}
-
-@code {
-    private List<Event> EventsList = new()
-    {
-        new Event { Id = 1, Name = "Corporate Summit", Date = DateTime.Today.AddDays(10), Location = "London" },
-        new Event { Id = 2, Name = "Tech Conference", Date = DateTime.Today.AddDays(20), Location = "Berlin" }
-    };
 }
